@@ -1,0 +1,3 @@
+[submodule "md-renderer-react"]
+	path = md-renderer-react
+	url = https://git.lug.ustc.edu.cn/ustc-igem/md-renderer-react.git
