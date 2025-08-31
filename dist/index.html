@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${htmlWebpackPlugin.options.title}</title> <!-- 会被插件替换为配置的 title -->
+<script defer src="bundle.js"></script></head>
+<body>
+  <!-- 必须有 React 根容器（对应 src/index.js 中的渲染逻辑） -->
+  <div id="root"></div>
+</body>
+</html>
