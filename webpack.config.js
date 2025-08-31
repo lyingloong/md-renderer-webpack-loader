@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -7,60 +8,82 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.html',
+      title: 'Markdown 渲染Demo',
+    }),
+  ],
   module: {
     rules: [
-      // 规则1：处理 .md 文件 → 先自定义 Loader 输出 JSX，再 babel-loader 转译 JSX
+      // 规则1：处理 .md 文件 → 自定义 Loader + babel-loader
       {
         test: /\.md$/,
         use: [
           {
-            // 第2步执行：转译自定义 Loader 输出的 JSX（必须在自定义 Loader 之前，因为 Loader 从后往前执行）
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-react'], // 仅需解析 JSX，无需额外预设
-              babelrc: false, // 禁用项目根目录的 babel 配置，避免冲突
-              configFile: false, // 禁用单独的 babel 配置文件
+              presets: ['@babel/preset-react'],
+              babelrc: false,
+              configFile: false,
             },
           },
           {
-            // 第1步执行：自定义 Loader 处理 Markdown，输出含 JSX 的代码
             loader: path.resolve(__dirname, 'local-md-loader.js'),
           },
         ],
       },
-      // 规则2：处理图片资源（无问题，保留）
+      // 规则2：处理图片资源
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name].[hash:6][ext]', // 带 hash 防缓存，合理
+          filename: 'images/[name].[hash:6][ext]',
         },
       },
-      // 规则3：处理主项目自己的 JS/JSX（无问题，保留）
+      // 规则3：处理主项目 JS/JSX
       {
         test: /\.(js|jsx)$/,
-        include: path.resolve(__dirname, "src"), // 仅处理主项目 src 目录，合理
-        exclude: /node_modules/, // 排除 node_modules，合理
+        include: path.resolve(__dirname, "src"),
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-react', '@babel/preset-env'], // 同时处理 JSX 和 ES 语法，合理
+            presets: ['@babel/preset-react', '@babel/preset-env'],
           },
+        },
+      },
+      // 规则4：处理 CSS 文件（包括 KaTeX CSS）
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      // 规则5：处理 KaTeX 字体文件
+      {
+        test: /\.(woff2?|ttf|eot|svg)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name].[hash:6][ext]',
         },
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.md'], // 支持省略 .md/.jsx 后缀，合理
+    extensions: ['.js', '.jsx', '.md'],
     alias: {
-      // React 别名：避免主项目与子模块 React 版本冲突，可选但推荐保留
-      "react": path.resolve(__dirname, "node_modules/react"),
-      "react-dom": path.resolve(__dirname, "node_modules/react-dom")
-    }
+      react: path.resolve(__dirname, "node_modules/react"),
+      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
+    },
   },
   devServer: {
-    static: path.resolve(__dirname, 'dist'), // 开发服务器静态目录，合理
-    port: 3200, // 端口号，合理
-    hot: true, // 热更新，合理
+    static: path.resolve(__dirname, 'dist'),
+    port: 3230,
+    hot: true,
+    open: false,
+    client: {
+      webSocketURL: 'ws://localhost:8888/ws',
+    },
+    webSocketServer: 'ws',
   },
 };
