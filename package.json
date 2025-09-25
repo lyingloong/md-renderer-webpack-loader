@@ -4,6 +4,7 @@
     "prepare": "cd md-renderer-react && npm install",
     "build:submodule": "cd md-renderer-react && npm run build",
     "prestart": "npm run build:submodule",
+    "prebuild": "npm run build:submodule",
     "start": "webpack serve --config webpack.config.js",
     "build": "webpack --config webpack.config.js"
   },

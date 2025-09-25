@@ -12,6 +12,13 @@ A custom Webpack loader to render Markdown (`.md`) files as React components wit
 
 ## Usage
 
+### Prepare
+
+```
+npm install
+npm run build
+```
+
 ### Webpack Configuration
 
 In your main project, configure Webpack to use `local-md-loader.js` for `.md` files. Example:
