@@ -16,13 +16,7 @@ and another line
 			embedded text
 		+ aligned element
 + txt
-  a0
-+ a1
-  + a2
-    + a3
-      a4
 
-aa
 Outer
 #display math wrapped and $inline~\LaTeX~in~title$
 \[
@@ -34,3 +28,7 @@ Outer
 	```
 test
 
+| Name | Age | City |
+| ---- | ---:| :---:|
+| Tom  |  12 | NY   |
+| Lily |  22 | LA   |
