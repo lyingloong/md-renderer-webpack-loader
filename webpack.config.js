@@ -31,6 +31,9 @@ module.exports = {
           },
           {
             loader: path.resolve(__dirname, 'local-md-loader.js'),
+            options: {
+              cssPath: '../styles/ContentPageLayout.module.scss'
+            }
           },
         ],
       },
@@ -59,7 +62,12 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-      // 规则5：处理 KaTeX 字体文件
+      // 规则5：处理 SCSS 文件
+      {
+        test: /\.scss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      // 规则6：处理 KaTeX 字体文件
       {
         test: /\.(woff2?|ttf|eot|svg)$/,
         type: 'asset/resource',

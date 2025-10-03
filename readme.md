@@ -38,6 +38,9 @@ module.exports = {
           },
           {
             loader: path.resolve(__dirname, 'local-md-loader.js'),
+            options: {
+              cssPath: '../styles/ContentPageLayout.module.scss'
+            }
           },
         ],
       },
@@ -47,6 +50,9 @@ module.exports = {
   resolve: { extensions: ['.js', '.jsx', '.md'] },
 };
 ```
+tip: cssPath (optional) is a relative path to the CSS/SCSS file from the Markdown document's directory.
+It will be imported into the rendered React component if provided.
+
 
 ### Markdown in React
 

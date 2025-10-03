@@ -1,0 +1,169 @@
+// 主容器，负责创建两栏布局
+.container {
+  display: grid;
+  // 定义两栏：左侧目录固定宽度，右侧内容占据剩余空间
+  grid-template-columns: 240px 1fr; 
+  gap: 3rem; // 两栏之间的间距
+  max-width: 1200px; // 页面内容的最大宽度
+  margin: 0 auto; // 居中显示
+  padding: 2rem; // 页面内边距
+
+  // 响应式设计：当屏幕宽度小于 1024px 时
+  @media (max-width: 1024px) {
+    // 变为单栏布局
+    grid-template-columns: 1fr; 
+  }
+
+  align-items: flex-start;
+}
+
+// 这个类被传给 BaseBanner，用于定义其独特的外观
+.descriptionBanner {
+  background-color: transparent; /* 改为透明，让动画背景透出来 */
+  color: var(--text-color);
+  min-height: 90vh; /* 增加垂直高度，给大标题留出足够的呼吸空间 */
+  display: flex; /* 使用 Flexbox 来垂直居中内容 */
+  flex-direction: column;
+  justify-content: center;
+  text-align: center; /* 让内部文字居中 */
+}
+
+
+.bannerContent {
+  display: flex;
+  flex-direction: column; // 关键：让子元素垂直（从上到下）排列
+  align-items: center; // 让子元素在水平方向上居中
+  gap: 0; // 在动画和描述文字之间添加一些垂直间距
+  text-align: center; // 确保文字居中
+
+  margin-top: -18vh;
+  }
+
+.bannerTitle {
+  font-size: clamp(3rem, 10vw, 6rem); /* 使用 clamp 实现响应式字体大小 */
+  font-weight: 900; /* 更粗的字重以匹配设计 */
+  margin-bottom: 1rem;
+  line-height: 1.1;
+  color: var(--text-color); /* 确保颜色正确 */
+}
+
+
+.titleAnimationContainer {
+  position: relative; // 关键：让动画脱离文档流，可以与其他元素重叠
+
+  z-index: 5; // z-index 比文字低，动画就在文字后面；比文字高，就在前面
+  pointer-events: none; // 确保动画不会阻挡鼠标事件
+
+  // 在这里控制动画的尺寸，使其能覆盖标题区域
+  width: clamp(600px, 90vw, 1100px);
+}
+
+//为banner过大的项目修改样式
+.oversizeContainer{
+  width: clamp(600px, 70vw, 900px);
+  top:5vh;
+}
+
+
+
+
+
+.bannerAnimationsContainer {
+  position: absolute;
+  bottom: 5vh;
+  right: 5vw;
+  // --- 新增 Flexbox 布局 ---
+  display: flex;
+  align-items: flex-end; // 让子元素底部对齐
+  gap: 0; // 在两个动画之间创建 2rem 的固定间距
+
+  // 定义基础尺寸变量
+  --animation-base-size: clamp(100px, 8vw, 160px);
+}
+
+.cornerAnimation {
+  // 不再需要 position: absolute 或 right/bottom
+
+  // 宽度基于父容器的变量计算
+  width: calc(var(--animation-base-size) * 1.5);
+  aspect-ratio: 16 / 9;
+}
+
+.arrowAnimation {
+  // 不再需要 position: absolute 或 right/bottom
+
+  // 宽度直接使用父容器定义的基准尺寸
+  width: var(--animation-base-size);
+  aspect-ratio: 1 / 1;
+
+  cursor: pointer;
+}
+
+
+// Banner 内部的段落描述样式
+.bannerDescription {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--text-secondary); /* 使用次要文本颜色 */
+}
+
+
+// 左侧栏（目录容器）的样式
+.leftColumn {
+  width: 240px;
+  // flex-shrink: 0 防止左侧栏在空间不足时被压缩
+  flex-shrink: 0;
+  
+  // 左侧栏本身需要是粘性定位的，这样它内部的目录才能正确计算高度
+  position: sticky;
+  top: calc(var(--current-header-height, 60px) + 2rem);
+}
+
+.rightColumn {
+  // 右侧栏占据剩余空间
+  flex-grow: 1;
+  min-width: 0; // 防止内容过宽时撑破布局
+
+  // --- 新增样式 ---
+  background-color: var(--card-bg); /* 使用卡片背景色 */
+  padding: 2rem 3rem; /* 增加内边距 */
+  border-radius: 12px; /* 添加圆角 */
+  box-shadow: var(--card-shadow); /* 添加阴影 */
+}
+
+// 右侧内容中的 H2 标题样式
+.subheading {
+
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+
+  padding-bottom: 0.5rem;
+
+   // --- 修改点 ---
+  font-family: var(--font-main); /* 使用主字体 */
+  color: var(--text-color);
+  border-bottom: 2px solid var(--accent-color); /* 使用主色作为下划线 */
+
+  // 关键属性：当通过目录链接跳转时，让标题距离浏览器顶部有一段距离
+  // 这样标题就不会被固定的 Header 遮挡
+  scroll-margin-top: calc(var(--current-header-height, 60px) + 2rem); 
+
+  // 第一个标题不需要额外的上边距
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+// 右侧内容中的段落样式
+.paragraph {
+  font-family: var(--font-main);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.8; // 增加行高以提高长文本的可读性
+  margin-bottom: 1.5rem;
+}
