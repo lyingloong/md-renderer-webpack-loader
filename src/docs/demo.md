@@ -1,8 +1,9 @@
-# 测试 Markdown
+# 测试 Markdown#2025-03-05
+#fig
 这是一张本地图片：
-![a figure](./assets/logo.svg)
+![a figure](./assets/lyingloong.png)
 
-# basic inline elements and math formulas#2025-03-05
+# basic inline elements and math formulas
 some *text* with $\LaTeX$ ^here^, which _may be_ very *^very^* long _^long^_, *even wraps-the-line*
 \[ display\ mode\ math\ and\ huge\ operators\ like \sum_{i=1}^n \]
 and another line
@@ -18,6 +19,7 @@ and another line
 + txt
 
 Outer
+
 #display math wrapped and $inline~\LaTeX~in~title$
 \[
 	display\ mode\ math\ that\ wraps\ the\ line\ in\ source\ code
@@ -26,8 +28,8 @@ Outer
 	```javascript=2
 	console.log('hello,\n world')
 	```
-test
-
+Outer
+#table
 | Name | Age | City |
 | ---- | ---:| :---:|
 | Tom  |  12 | NY   |
