@@ -77,7 +77,7 @@ module.exports = async function (source) {
     const mdContent = readFileSync(mdFilePath, 'utf8');
 
     // 获取 AST 数据用于提取标题
-    const ast = parser.parseMarkdownToAST(mdContent);
+    const ast = await parser.parseMarkdownToAST(mdContent);
     const headings = [];
 
     // 从 AST 中提取标题信息
