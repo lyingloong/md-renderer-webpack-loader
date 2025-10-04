@@ -142,8 +142,7 @@ module.exports = async function (source) {
       import React from 'react';
       import 'katex/dist/katex.min.css';
       import 'highlight.js/styles/github.css';
-      // ${cssImport}
-      import styles from '../styles/ContentPageLayout.module.scss';
+      ${cssImport}
 
       ${importStatements}
       
