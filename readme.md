@@ -15,8 +15,7 @@ A custom Webpack loader to render Markdown (`.md`) files as React components wit
 ### Prepare
 
 ```
-npm install
-npm run build
+npm run build:submodule
 ```
 
 ### Webpack Configuration
@@ -89,6 +88,20 @@ webpack-igemd-loader/
 ├── package-lock.json
 ├── readme.md            # Documentation
 └── webpack.config.js    # Example Webpack configuration for demo
+```
+
+### Demo
+
+If you want to start the demo, check this:
+
+```
+npm run start:demo
+```
+
+Or build the demo:
+
+```
+npm run build:demo
 ```
 
 ## Notes
