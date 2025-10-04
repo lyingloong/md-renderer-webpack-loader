@@ -75,6 +75,20 @@ The loader will automatically:
 - Import local images and update `<img>` and `<Figure>` paths.
 - Apply KaTeX and syntax highlighting styles.
 
+### Demo
+
+If you want to start the demo, please checkout the branch `demo` and:
+
+```
+npm run start:demo
+```
+
+Or build the demo:
+
+```
+npm run build:demo
+```
+
 ## Project Structure
 
 ```
@@ -88,20 +102,6 @@ webpack-igemd-loader/
 ├── package-lock.json
 ├── readme.md            # Documentation
 └── webpack.config.js    # Example Webpack configuration for demo
-```
-
-### Demo
-
-If you want to start the demo, check this:
-
-```
-npm run start:demo
-```
-
-Or build the demo:
-
-```
-npm run build:demo
 ```
 
 ## Notes
