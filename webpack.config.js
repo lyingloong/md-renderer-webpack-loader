@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -13,6 +14,17 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html',
       title: 'Markdown 渲染Demo',
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/docs'), // md 源目录
+          to: 'docs',                               // 打包到 dist/docs
+          globOptions: {
+            ignore: ['**/*.DS_Store'],              // 忽略 macOS 文件等
+          },
+        },
+      ],
     }),
   ],
   module: {
@@ -32,7 +44,7 @@ module.exports = {
           {
             loader: path.resolve(__dirname, 'local-md-loader.js'),
             options: {
-              cssPath: '../styles/ContentPageLayout.module.scss'
+              cssPath: '../styles/style.module.scss'
             }
           },
         ],

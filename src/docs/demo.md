@@ -1,7 +1,7 @@
 # 测试 Markdown#2025-03-05
 #fig
-这是一张本地图片：
-![a figure](./assets/lyingloong.png)
+这是一张图片：
+![a figure](https://static.igem.wiki/teams/5924/drylab/snap-25.webp)
 
 # basic inline elements and math formulas
 some *text* with $\LaTeX$ ^here^, which _may be_ very *^very^* long _^long^_, *even wraps-the-line*

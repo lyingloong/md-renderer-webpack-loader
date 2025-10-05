@@ -1,0 +1,174 @@
+.md {
+  font-family: var(--font-main, 'Helvetica', 'Arial', sans-serif);
+  color: var(--text-primary, #222);
+  line-height: 1.75;
+}
+
+.plain {
+  color: var(--text-secondary, #444);
+}
+
+.paragraph {
+  font-family: var(--font-main);
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 1rem 0;
+}
+
+.section {
+  margin: 2rem 0;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  white-space: pre-line;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.section-time {
+  color: #888;
+  font-size: 0.875rem;
+}
+
+.section-content {
+  margin-top: 1rem;
+}
+
+.code {
+  font-family: 'Fira Code', 'Consolas', monospace;
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+.language {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.8rem;
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.table th {
+  background-color: #fafafa;
+  font-weight: 600;
+}
+
+.table-cell {
+  vertical-align: top;
+}
+
+ul,
+ol {
+  margin: 1rem 0 1rem 1.5rem;
+  padding: 0;
+}
+
+ul li,
+ol li {
+  margin: 0.5rem 0;
+}
+
+.item {
+  margin: 0.3rem 0;
+}
+
+.plain {
+  color: var(--text-secondary);
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underlined {
+  text-decoration: underline;
+}
+
+.math {
+  color: #333;
+  background: transparent;
+  font-size: 1rem;
+}
+
+.math.display {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem auto;
+  max-width: 90%;
+}
+
+figure img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.caption {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+a {
+  color: var(--link-color, #007acc);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 0.5rem 0;
+  }
+
+  .code {
+    font-size: 0.85rem;
+  }
+
+  .title h2 {
+    font-size: 1.25rem;
+  }
+}
