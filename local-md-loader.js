@@ -5,17 +5,11 @@ const { pathToFileURL } = require('url');
 // md-renderer-react submodule path
 const submoduleEntry = resolve(__dirname, './md-renderer-react/dist/index.js');
 
-const getImageVarName = (path) =>
-  `img_${Buffer.from(path).toString('base64').replace(/[^a-zA-Z0-9_]/g, '_')}`;
-
-const isLocalPath = (path) => !/^https?:\/\//.test(path) && !path.startsWith('/');
-
-
 module.exports = async function () {
   const options = this.getOptions ? this.getOptions() : this.query || {};
   let cssImport = '';
   if (options.cssPath) {
-      cssImport = `import styles from '${options.cssPath}';`;
+      cssImport = `import * as styles from '${options.cssPath}';`;
       console.log(`[local-md-loader] import css: '${options.cssPath}'`);
   }
 
@@ -30,9 +24,9 @@ module.exports = async function () {
       import 'katex/dist/katex.min.css';
       import 'highlight.js/styles/github.css';
       ${cssImport}
-      import { mdRenderer } from '${pathToFileURL(submoduleEntry).href}';
+      import { MDRenderer } from '${pathToFileURL(submoduleEntry).href}';
 
-      let __ast = null;
+      const renderer = new MDRenderer({ styles });
 
       export default function MarkdownComponent() {
         const [element, setElement] = useState(<div>loading...</div>);
@@ -42,7 +36,7 @@ module.exports = async function () {
 
           (async () => {
             try {
-              const el = await mdRenderer.renderToElement(\`${mdContent.replace(/`/g, '\\`')}\`);
+              const el = await renderer.renderToElement(\`${mdContent.replace(/`/g, '\\`')}\`);
               if (canceled) return;
 
               if (!el) {
@@ -51,7 +45,6 @@ module.exports = async function () {
                 return;
               }
 
-              __ast = mdRenderer.lastAST || null;
               setElement(el);
             } catch (err) {
               console.error("[md-loader] 渲染失败:", err);
@@ -66,10 +59,7 @@ module.exports = async function () {
 
         return element;
       }
-
-      export const getAST = () => __ast;
     `;
-
 
     callback(null, finalCode);
   } catch (err) {
