@@ -167,3 +167,7 @@
   line-height: 1.8; // 增加行高以提高长文本的可读性
   margin-bottom: 1.5rem;
 }
+
+p {
+  white-space: pre-wrap;
+}

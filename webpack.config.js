@@ -62,9 +62,26 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-      // 规则5：处理 SCSS 文件
+      // 规则5：处理 SCSS 文件（启用 CSS Modules）
       {
-        test: /\.scss$/i,
+        test: /\.module\.s[ac]ss$/i,   // 只处理 .module.scss
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[local]_[hash:6]', // 可选：自定义 class 名规则
+              },
+            },
+          },
+          'sass-loader',
+        ],
+      },
+      // 处理普通 SCSS 文件，不启用 modules
+      {
+        test: /\.s[ac]ss$/i,
+        exclude: /\.module\.s[ac]ss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       // 规则6：处理 KaTeX 字体文件
@@ -89,9 +106,9 @@ module.exports = {
     port: 3220,
     hot: true,
     open: false,
-    client: {
-      webSocketURL: 'ws://localhost:8888/ws',
-    },
+    // client: {
+    //   webSocketURL: 'ws://localhost:8888/ws',
+    // },
     webSocketServer: 'ws',
   },
 };
