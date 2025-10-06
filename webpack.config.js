@@ -18,8 +18,8 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/docs'), // md 源目录
-          to: 'docs',                               // 打包到 dist/docs
+          from: path.resolve(__dirname, 'src/md'), // md 源目录
+          to: 'md',                               // 打包到 dist/md
           globOptions: {
             ignore: ['**/*.DS_Store'],              // 忽略 macOS 文件等
           },

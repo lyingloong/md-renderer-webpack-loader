@@ -16,7 +16,7 @@ module.exports = async function () {
   const callback = this.async();
   try {
     const mdFileName = this.resourcePath.split(/[\\/]/).pop(); // demo.md
-    const mdUrl = `/docs/${mdFileName}`; // 浏览器可访问 URL
+    const mdUrl = `/md/${mdFileName}`; // 浏览器可访问 URL
 
     const finalCode = `
       import React, { useEffect, useState } from 'react';
