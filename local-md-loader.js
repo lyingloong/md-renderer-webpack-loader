@@ -15,9 +15,8 @@ module.exports = async function () {
 
   const callback = this.async();
   try {
-    const mdFilePath = this.resourcePath;
-    this.addDependency(mdFilePath);
-    const mdContent = readFileSync(mdFilePath, 'utf8');
+    const mdFileName = this.resourcePath.split(/[\\/]/).pop(); // demo.md
+    const mdUrl = `/md/${mdFileName}`; // 浏览器可访问 URL
 
     const finalCode = `
       import React, { useEffect, useState } from 'react';
@@ -36,7 +35,10 @@ module.exports = async function () {
 
           (async () => {
             try {
-              const el = await renderer.renderToElement(\`${mdContent.replace(/`/g, '\\`')}\`);
+              const res = await fetch('${mdUrl}');
+              const mdContent = await res.text();
+
+              const el = await renderer.renderToElement(mdContent);
               if (canceled) return;
 
               if (!el) {
