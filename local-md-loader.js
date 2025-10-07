@@ -26,7 +26,7 @@ module.exports = async function () {
   const callback = this.async();
   try {
     const mdFileName = this.resourcePath ? this.resourcePath.split(/[\\/]/).pop() : 'unknown.md';
-    const mdUrl = `static/md/${mdFileName}`; // 浏览器可访问 URL
+    const mdUrl = `md/${mdFileName}`; // 浏览器可访问 URL
     console.log(`[local-md-loader] mdUrl: '${mdUrl}'`);
 
     const finalCode = `
