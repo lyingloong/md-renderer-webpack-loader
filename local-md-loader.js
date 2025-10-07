@@ -4,19 +4,30 @@ const { pathToFileURL } = require('url');
 
 // md-renderer-react submodule path
 const submoduleEntry = resolve(__dirname, './md-renderer-react/dist/index.js');
+console.log('[local-md-loader] 执行环境:', typeof window === 'undefined' ? 'Node (SSR)' : 'Browser');
+
+const isNonEmptyString = (v) => typeof v === 'string' && v.trim().length > 0;
+const isNonEmptyArray  = (arr) => Array.isArray(arr) && arr.length > 0;
 
 module.exports = async function () {
+  if (this.resourcePath) {
+    console.log('[local-md-loader] processing:', this.resourcePath);
+  } else {
+    console.warn('[local-md-loader] Warning: this.resourcePath is undefined');
+  }
   const options = this.getOptions ? this.getOptions() : this.query || {};
+
   let cssImport = '';
-  if (options.cssPath) {
+  if (isNonEmptyString(options.cssPath)) {
       cssImport = `import * as styles from '${options.cssPath}';`;
       console.log(`[local-md-loader] import css: '${options.cssPath}'`);
   }
 
   const callback = this.async();
   try {
-    const mdFileName = this.resourcePath.split(/[\\/]/).pop(); // demo.md
-    const mdUrl = `/md/${mdFileName}`; // 浏览器可访问 URL
+    const mdFileName = this.resourcePath ? this.resourcePath.split(/[\\/]/).pop() : 'unknown.md';
+    const mdUrl = `static/md/${mdFileName}`; // 浏览器可访问 URL
+    console.log(`[local-md-loader] mdUrl: '${mdUrl}'`);
 
     const finalCode = `
       import React, { useEffect, useState } from 'react';
@@ -35,8 +46,10 @@ module.exports = async function () {
 
           (async () => {
             try {
+              console.log("[frontend md-loader] fetching md from:", '${mdUrl}');
               const res = await fetch('${mdUrl}');
               const mdContent = await res.text();
+              console.log("[frontend md-loader] fetched md content:", mdContent);
 
               const el = await renderer.renderToElement(mdContent);
               if (canceled) return;
